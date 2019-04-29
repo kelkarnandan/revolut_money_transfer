@@ -18,8 +18,10 @@ public enum Currency {
     }
 
     public static Currency valueByName(String name) {
-        for (Currency cur: Currency.values()) {
-            if (name.toUpperCase().equals(cur.name())) return cur;
+        for (Currency cur : Currency.values()) {
+            if (name.toUpperCase().equals(cur.name())) {
+                return cur;
+            }
         }
         return null;
     }

@@ -54,12 +54,14 @@ public class BankAccountTransactionInfo {
 
         private final BankAccountTransactionInfo txn = new BankAccountTransactionInfo();
 
-        public Builder() {}
+        public Builder() {
+        }
 
         public BankAccountTransactionInfo.Builder txnId(long id) {
             txn.setId(id);
             return this;
         }
+
         public BankAccountTransactionInfo.Builder amount(double amount) {
             txn.setAmount(amount);
             return this;

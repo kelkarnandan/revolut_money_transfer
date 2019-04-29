@@ -2,20 +2,21 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.revolut.hiring</groupId>
-	<artifactId>restful-api</artifactId>
+	<artifactId>revolut_money_transfer</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
-        <jersey.version>1.19.4</jersey.version>
-    </properties>
+		<jersey.version>1.19.4</jersey.version>
+		<junit.jupiter.version>5.0.1</junit.jupiter.version>
+	</properties>
 
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.0.1</version>
+			<version>${junit.jupiter.version}</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -69,11 +70,12 @@
 					<dependency>
 						<groupId>org.junit.jupiter</groupId>
 						<artifactId>junit-jupiter-engine</artifactId>
-						<version>5.0.1</version>
+						<version>${junit.jupiter.version}</version>
 					</dependency>
 				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
 
+	
 </project>

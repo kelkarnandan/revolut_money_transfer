@@ -10,7 +10,8 @@ public class BankAccountInfo {
     private Date creationDate;
     private boolean isActive;
 
-    public BankAccountInfo(long accountNumber, double balance, Currency currency, Date creationDate, boolean isActive) {
+    public BankAccountInfo(long accountNumber, double balance, Currency currency, Date creationDate,
+            boolean isActive) {
         this.accountNumber = accountNumber;
         this.balance = balance;
         this.currency = currency;
@@ -46,7 +47,7 @@ public class BankAccountInfo {
         return currency;
     }
 
-    public  static class Builder {
+    public static class Builder {
 
         private long accountNumber;
         private double balance;

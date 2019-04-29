@@ -1,36 +1,37 @@
 package com.revolut.hiring.service;
 
-import com.revolut.hiring.bean.BankAccountInfo;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
+
+import com.revolut.hiring.bean.BankAccountInfo;
 
 public class BankAccountServiceTest {
 
-    private final BankAccountService testClass = new BankAccountService();
+    private final BankAccountService bankAccountService = new BankAccountService();
 
     @Test
     public void testAccountServices() {
 
-        List<BankAccountInfo> accounts = testClass.getAccountsInfo();
+        List<BankAccountInfo> accounts = bankAccountService.getAccountsInfo();
         int accountsCount = accounts.size();
 
         try {
-            testClass.createAccount("GBP");
+            bankAccountService.createAccount("GBP");
             fail("Created account for unsupported currency");
-        } catch (UnsupportedOperationException e) {}
+        }
+        catch (UnsupportedOperationException e) {
+        }
 
-        final BankAccountInfo usdAccount = testClass.createAccount("USD");
-        assertEquals(accountsCount+1 , testClass.getAccountsInfo().size());
-        assertEquals(usdAccount , testClass.getAccountInfo(usdAccount.getAccountNumber()));
-        assertNull(testClass.getAccountInfo(32432));
+        final BankAccountInfo usdAccount = bankAccountService.createAccount("USD");
+        assertEquals(accountsCount + 1, bankAccountService.getAccountsInfo().size());
+        assertEquals(usdAccount, bankAccountService.getAccountInfo(usdAccount.getAccountNumber()));
+        assertNull(bankAccountService.getAccountInfo(32432));
 
-        testClass.deleteAccount(usdAccount.getAccountNumber());
-        assertEquals(accountsCount , testClass.getAccountsInfo().size());
-        assertNull(testClass.getAccountInfo(usdAccount.getAccountNumber()));
+        bankAccountService.deleteAccount(usdAccount.getAccountNumber());
+        assertEquals(accountsCount, bankAccountService.getAccountsInfo().size());
+        assertNull(bankAccountService.getAccountInfo(usdAccount.getAccountNumber()));
     }
 }

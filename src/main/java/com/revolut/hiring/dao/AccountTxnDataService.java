@@ -1,9 +1,13 @@
 package com.revolut.hiring.dao;
 
-import com.revolut.hiring.bean.BankAccountTransactionInfo;
-
-import java.util.*;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import com.revolut.hiring.bean.BankAccountTransactionInfo;
 
 public class AccountTxnDataService {
 
@@ -11,36 +15,42 @@ public class AccountTxnDataService {
 
     private static final AccountTxnDataService INSTANCE = new AccountTxnDataService();
 
-    public static AccountTxnDataService getInstance() { return INSTANCE; }
+    public static AccountTxnDataService getInstance() {
+        return INSTANCE;
+    }
 
-    private AccountTxnDataService() {}
+    private AccountTxnDataService() {
+    }
 
-    public void addTransaction(BankAccountTransactionInfo txnInfo) { transactions.add(txnInfo); }
+    public void addTransaction(BankAccountTransactionInfo txnInfo) {
+        transactions.add(txnInfo);
+    }
 
     public List<BankAccountTransactionInfo> getAllTransactions(long accountId) {
-        return transactions.stream().filter(t -> t.getAccountId()== accountId)
+        return transactions.stream().filter(t -> t.getAccountId() == accountId)
                 .sorted(Comparator.comparing(BankAccountTransactionInfo::getTxnDate))
                 .collect(Collectors.toList());
     }
 
     public BankAccountTransactionInfo getTransactionById(long txnId) {
-        final Optional<BankAccountTransactionInfo> txn = transactions.stream().filter(t -> t.getId() == txnId).findAny();
+        final Optional<BankAccountTransactionInfo> txn = transactions.stream()
+                .filter(t -> t.getId() == txnId).findAny();
         return txn.isPresent() ? txn.get() : null;
     }
 
-    public List<BankAccountTransactionInfo> getAllTransactions(long accountId, final Date fromDate) {
-        return transactions.stream()
-                .filter(t -> accountId == t.getAccountId())
+    public List<BankAccountTransactionInfo> getAllTransactions(long accountId,
+            final Date fromDate) {
+        return transactions.stream().filter(t -> accountId == t.getAccountId())
                 .filter(t -> t.getTxnDate().after(fromDate) || t.getTxnDate().equals(fromDate))
                 .sorted(Comparator.comparing(BankAccountTransactionInfo::getTxnDate))
                 .collect(Collectors.toList());
     }
 
-    public List<BankAccountTransactionInfo> getAllTransactions(long accountId, final Date fromDate, final Date endDate) {
-        return transactions.stream()
-                .filter(t -> accountId == t.getAccountId())
-                .filter(t -> (t.getTxnDate().after(fromDate) || t.getTxnDate().equals(fromDate)) &&
-                             (t.getTxnDate().before(endDate) || t.getTxnDate().equals(endDate)))
+    public List<BankAccountTransactionInfo> getAllTransactions(long accountId, final Date fromDate,
+            final Date endDate) {
+        return transactions.stream().filter(t -> accountId == t.getAccountId())
+                .filter(t -> (t.getTxnDate().after(fromDate) || t.getTxnDate().equals(fromDate))
+                        && (t.getTxnDate().before(endDate) || t.getTxnDate().equals(endDate)))
                 .sorted(Comparator.comparing(BankAccountTransactionInfo::getTxnDate))
                 .collect(Collectors.toList());
     }

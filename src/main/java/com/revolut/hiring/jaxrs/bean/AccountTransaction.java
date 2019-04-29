@@ -1,8 +1,8 @@
 package com.revolut.hiring.jaxrs.bean;
 
-import com.revolut.hiring.bean.BankAccountTransactionInfo;
-
 import static com.revolut.hiring.util.DateUtil.getDateString;
+
+import com.revolut.hiring.bean.BankAccountTransactionInfo;
 
 public class AccountTransaction {
 
@@ -12,7 +12,8 @@ public class AccountTransaction {
     private double amount;
     private String txnDate;
 
-    public AccountTransaction(long txnId, long accountId, String txnType, double amount, String txnDate) {
+    public AccountTransaction(long txnId, long accountId, String txnType, double amount,
+            String txnDate) {
         this.txnId = txnId;
         this.accountId = accountId;
         this.txnType = txnType;
@@ -21,11 +22,11 @@ public class AccountTransaction {
     }
 
     public AccountTransaction(BankAccountTransactionInfo txnInfo) {
-        this.txnId = txnInfo.getId();
-        this.accountId = txnInfo.getAccountId();
-        this.txnType = txnInfo.getTxnType().name();
-        this.amount = txnInfo.getAmount();
-        this.txnDate = getDateString(txnInfo.getTxnDate());
+        txnId = txnInfo.getId();
+        accountId = txnInfo.getAccountId();
+        txnType = txnInfo.getTxnType().name();
+        amount = txnInfo.getAmount();
+        txnDate = getDateString(txnInfo.getTxnDate());
     }
 
     public long getTxnId() {

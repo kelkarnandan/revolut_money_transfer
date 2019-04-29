@@ -1,12 +1,12 @@
 package com.revolut.hiring.jaxrs.bean;
 
-import com.revolut.hiring.bean.BankAccountTransactionInfo;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import com.revolut.hiring.bean.BankAccountTransactionInfo;
 
 public class TransactionInfoResponse {
 
@@ -36,8 +36,8 @@ public class TransactionInfoResponse {
     }
 
     public void addToRequestMap(String key, String value) {
-        if (key!=null) {
-            this.request.put(key, value);
+        if (key != null) {
+            request.put(key, value);
         }
     }
 
@@ -46,8 +46,11 @@ public class TransactionInfoResponse {
     }
 
     public void addTxns(List<BankAccountTransactionInfo> txns) {
-        if (txns.isEmpty()) return;
-        final List<AccountTransaction> transactions = txns.stream().map(AccountTransaction::new).collect(Collectors.toList());
+        if (txns.isEmpty()) {
+            return;
+        }
+        final List<AccountTransaction> transactions = txns.stream().map(AccountTransaction::new)
+                .collect(Collectors.toList());
         this.txns.addAll(transactions);
     }
 }

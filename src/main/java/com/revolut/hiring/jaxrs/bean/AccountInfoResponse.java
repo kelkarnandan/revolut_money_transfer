@@ -1,8 +1,8 @@
 package com.revolut.hiring.jaxrs.bean;
 
-import com.revolut.hiring.bean.BankAccountInfo;
-
 import static com.revolut.hiring.util.DateUtil.getDateString;
+
+import com.revolut.hiring.bean.BankAccountInfo;
 
 public class AccountInfoResponse {
 
@@ -11,7 +11,8 @@ public class AccountInfoResponse {
     private String currency;
     private String creationDate;
 
-    public AccountInfoResponse(long accountNumber, double balance, String currency, String creationDate) {
+    public AccountInfoResponse(long accountNumber, double balance, String currency,
+            String creationDate) {
         this.accountNumber = accountNumber;
         this.balance = balance;
         this.currency = currency;
@@ -19,10 +20,10 @@ public class AccountInfoResponse {
     }
 
     public AccountInfoResponse(BankAccountInfo accountInfo) {
-        this.accountNumber = accountInfo.getAccountNumber();
-        this.balance = accountInfo.getBalance();
-        this.currency = accountInfo.getCurrency().name();
-        this.creationDate = getDateString(accountInfo.getCreationDate());
+        accountNumber = accountInfo.getAccountNumber();
+        balance = accountInfo.getBalance();
+        currency = accountInfo.getCurrency().name();
+        creationDate = getDateString(accountInfo.getCreationDate());
     }
 
     public long getAccountNumber() {
