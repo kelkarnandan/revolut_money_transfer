@@ -1,6 +1,6 @@
 package com.revolut.hiring.service;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -48,13 +48,14 @@ public class AccountTransactionServiceTest {
         assertEquals(expectedValue, actualValue);
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void testCredit() {
 
         account1.setBalance(0);
         final double balance = account1.getBalance();
         double creditAmount = 100;
-        final long txnId = accountTxnService.credit(account1.getAccountNumber(), creditAmount);
+        accountTxnService.credit(account1.getAccountNumber(), creditAmount);
         assertEquals(balance + creditAmount, account1.getBalance());
 
         long invalidAccount = 3243;
@@ -67,6 +68,7 @@ public class AccountTransactionServiceTest {
 
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void testDebit() {
 
@@ -95,6 +97,7 @@ public class AccountTransactionServiceTest {
 
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void testTransfer() {
         account1.setBalance(100);
