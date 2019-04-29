@@ -20,8 +20,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.revolut.hiring.bean.BankAccountInfo;
-import com.revolut.hiring.jaxrs.bean.AccountCreateDeleteResponse;
-import com.revolut.hiring.jaxrs.bean.AccountInfoResponse;
+import com.revolut.hiring.jaxrs.response.AccountCreateDeleteResponse;
+import com.revolut.hiring.jaxrs.response.AccountInfoResponse;
 import com.revolut.hiring.service.BankAccountService;
 
 @Path("account")

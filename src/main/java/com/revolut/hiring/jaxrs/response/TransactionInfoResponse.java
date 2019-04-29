@@ -1,4 +1,4 @@
-package com.revolut.hiring.jaxrs.bean;
+package com.revolut.hiring.jaxrs.response;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -13,7 +13,7 @@ public class TransactionInfoResponse {
     private String status;
     private String time;
     private Map<String, String> request = new HashMap<>();
-    private List<AccountTransaction> txns = new LinkedList<>();
+    private List<AccountTransactionResponse> txns = new LinkedList<>();
 
     public String getStatus() {
         return status;
@@ -41,7 +41,7 @@ public class TransactionInfoResponse {
         }
     }
 
-    public List<AccountTransaction> getTxns() {
+    public List<AccountTransactionResponse> getTxns() {
         return txns;
     }
 
@@ -49,7 +49,7 @@ public class TransactionInfoResponse {
         if (txns.isEmpty()) {
             return;
         }
-        final List<AccountTransaction> transactions = txns.stream().map(AccountTransaction::new)
+        final List<AccountTransactionResponse> transactions = txns.stream().map(AccountTransactionResponse::new)
                 .collect(Collectors.toList());
         this.txns.addAll(transactions);
     }

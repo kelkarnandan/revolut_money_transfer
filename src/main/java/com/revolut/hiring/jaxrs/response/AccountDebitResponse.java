@@ -1,4 +1,6 @@
-package com.revolut.hiring.jaxrs.bean;
+package com.revolut.hiring.jaxrs.response;
+
+import com.revolut.hiring.jaxrs.request.AccountDebitRequest;
 
 public class AccountDebitResponse {
 

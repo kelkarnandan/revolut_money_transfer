@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 import com.revolut.hiring.bean.BankAccountInfo;
 import com.revolut.hiring.bean.BankAccountTransactionInfo;
 import com.revolut.hiring.dao.AccountTxnDataService;
-import com.revolut.hiring.jaxrs.bean.AccountTransaction;
+import com.revolut.hiring.jaxrs.response.AccountTransactionResponse;
 import com.revolut.hiring.service.BankAccountService;
 
 @Path("account/txn")
@@ -33,7 +33,7 @@ public class AccountTransactionsInfoService {
             .getLogger(AccountTransactionsInfoService.class);
     private static final String QUERY_PARAM_DATE_FORMAT = "dd-MM-yyyy";
 
-    private final BankAccountService accountService = new BankAccountService();
+    private final BankAccountService bankAccountService = new BankAccountService();
     private final AccountTxnDataService txnDataService = AccountTxnDataService.getInstance();
 
     @GET
@@ -43,13 +43,13 @@ public class AccountTransactionsInfoService {
             @PathParam("txnid") long txnId) {
 
         logger.info("Received get txn request for account :: {}, txn id :: {}", accountId, txnId);
-        final BankAccountInfo accountInfo = accountService.getAccountInfo(accountId);
+        final BankAccountInfo accountInfo = bankAccountService.getAccountInfo(accountId);
         if (accountInfo != null) {
             final List<BankAccountTransactionInfo> accntTxns = txnDataService
                     .getAllTransactions(accountId);
             for (BankAccountTransactionInfo accntTxn : accntTxns) {
                 if (txnId == accntTxn.getId()) {
-                    AccountTransaction txn = new AccountTransaction(accntTxn);
+                    AccountTransactionResponse txn = new AccountTransactionResponse(accntTxn);
                     return Response.ok().entity(txn).build();
                 }
             }
@@ -65,7 +65,7 @@ public class AccountTransactionsInfoService {
     public Response getTxnsDetails(@PathParam("id") String accntId,
             @QueryParam("from") String fromDate, @QueryParam("to") String endDate) {
 
-        List<AccountTransaction> txns = new LinkedList<>();
+        List<AccountTransactionResponse> txns = new LinkedList<>();
         if (accntId == null || accntId.isEmpty()) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
@@ -73,7 +73,7 @@ public class AccountTransactionsInfoService {
         final long accountId = Long.parseLong(accntId);
 
         if (fromDate == null && endDate == null) {
-            txns.addAll(getTxnDetails(accountId).stream().map(AccountTransaction::new)
+            txns.addAll(getTxnDetails(accountId).stream().map(AccountTransactionResponse::new)
                     .collect(Collectors.toList()));
 
         }
@@ -94,7 +94,7 @@ public class AccountTransactionsInfoService {
 
                     txnDetails.addAll(getTxnDetails(accountId, from, to));
                 }
-                txns.addAll(txnDetails.stream().map(AccountTransaction::new)
+                txns.addAll(txnDetails.stream().map(AccountTransactionResponse::new)
                         .collect(Collectors.toList()));
 
             }
@@ -115,7 +115,7 @@ public class AccountTransactionsInfoService {
                 accountId, getDateString(fromDate, "dd-MM-yyyy"),
                 getDateString(endDate, "dd-MM-yyyy"));
 
-        final BankAccountInfo accountInfo = accountService.getAccountInfo(accountId);
+        final BankAccountInfo accountInfo = bankAccountService.getAccountInfo(accountId);
         if (accountInfo != null) {
             return txnDataService.getAllTransactions(accountInfo.getAccountNumber(), fromDate,
                     endDate);
@@ -128,7 +128,7 @@ public class AccountTransactionsInfoService {
 
     private List<BankAccountTransactionInfo> getTxnDetails(long accountId) {
         logger.info("Received get txns request for account :: {}", accountId);
-        final BankAccountInfo accountInfo = accountService.getAccountInfo(accountId);
+        final BankAccountInfo accountInfo = bankAccountService.getAccountInfo(accountId);
         if (accountInfo != null) {
             return txnDataService.getAllTransactions(accountId);
         }
@@ -140,7 +140,7 @@ public class AccountTransactionsInfoService {
     private List<BankAccountTransactionInfo> getTxnDetails(long accountId, Date fromDate) {
         logger.info("Received get txns request for account :: {} and start date :: {}", accountId,
                 getDateString(fromDate, "dd-MM-yyyy"));
-        final BankAccountInfo accountInfo = accountService.getAccountInfo(accountId);
+        final BankAccountInfo accountInfo = bankAccountService.getAccountInfo(accountId);
         if (accountInfo != null) {
             return txnDataService.getAllTransactions(accountInfo.getAccountNumber(), fromDate);
         }

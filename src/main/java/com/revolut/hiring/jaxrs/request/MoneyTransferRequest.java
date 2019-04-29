@@ -1,4 +1,4 @@
-package com.revolut.hiring.jaxrs.bean;
+package com.revolut.hiring.jaxrs.request;
 
 public class MoneyTransferRequest {
 

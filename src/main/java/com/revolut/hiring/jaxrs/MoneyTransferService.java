@@ -17,12 +17,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.revolut.hiring.exceptions.InsufficientFundsException;
-import com.revolut.hiring.jaxrs.bean.AccountCreditRequest;
-import com.revolut.hiring.jaxrs.bean.AccountCreditResponse;
-import com.revolut.hiring.jaxrs.bean.AccountDebitRequest;
-import com.revolut.hiring.jaxrs.bean.AccountDebitResponse;
-import com.revolut.hiring.jaxrs.bean.MoneyTransferRequest;
-import com.revolut.hiring.jaxrs.bean.MoneyTransferResponse;
+import com.revolut.hiring.jaxrs.request.AccountCreditRequest;
+import com.revolut.hiring.jaxrs.request.AccountDebitRequest;
+import com.revolut.hiring.jaxrs.request.MoneyTransferRequest;
+import com.revolut.hiring.jaxrs.response.AccountCreditResponse;
+import com.revolut.hiring.jaxrs.response.AccountDebitResponse;
+import com.revolut.hiring.jaxrs.response.MoneyTransferResponse;
 import com.revolut.hiring.service.AccountTransactionService;
 
 @Path("account/money")

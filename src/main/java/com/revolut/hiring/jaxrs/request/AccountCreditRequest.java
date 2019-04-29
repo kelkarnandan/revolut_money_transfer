@@ -1,6 +1,6 @@
-package com.revolut.hiring.jaxrs.bean;
+package com.revolut.hiring.jaxrs.request;
 
-public class AccountDebitRequest {
+public class AccountCreditRequest {
 
     private Long account;
     private Double amount;
