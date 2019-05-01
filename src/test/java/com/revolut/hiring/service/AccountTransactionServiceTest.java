@@ -1,11 +1,10 @@
 package com.revolut.hiring.service;
 
-import static org.junit.Assert.*;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -45,61 +44,83 @@ public class AccountTransactionServiceTest {
         final Double actualValue = (Double) method.invoke(accountTxnService, inputAmount,
                 sourceCurrency, sinkCurrency);
 
-        assertEquals(expectedValue, actualValue);
+        Assertions.assertEquals(expectedValue, actualValue);
     }
 
-    @SuppressWarnings("deprecation")
     @Test
-    public void testCredit() {
+    public void testCreditSuccess() {
 
         account1.setBalance(0);
         final double balance = account1.getBalance();
         double creditAmount = 100;
         accountTxnService.credit(account1.getAccountNumber(), creditAmount);
-        assertEquals(balance + creditAmount, account1.getBalance());
+        Assertions.assertEquals(balance + creditAmount, account1.getBalance());
 
+    }
+
+    @Test
+    public void testCreditIllegalArgumentException() {
+
+        account1.setBalance(0);
         long invalidAccount = 3243;
         try {
             accountTxnService.credit(invalidAccount, 0);
-            fail("Credited amount into non-existing account");
+            Assertions.fail("Credited amount into non-existing account");
         }
-        catch (IllegalArgumentException e) {
+        catch (Exception e) {
+            Assertions.assertTrue(e instanceof IllegalArgumentException);
         }
 
     }
 
-    @SuppressWarnings("deprecation")
     @Test
-    public void testDebit() {
-
+    public void testDebitSuccess() throws InsufficientFundsException {
         account1.setBalance(100);
 
         final double balance = account1.getBalance();
         double debitAmount = 100;
+
         accountTxnService.debit(account1.getAccountNumber(), debitAmount);
-        assertEquals(balance - debitAmount, account1.getBalance());
+        Assertions.assertEquals(balance - debitAmount, account1.getBalance());
 
-        long invalidAccount = 3243;
+    }
+
+    @Test
+    public void testDebitIllegalArgumentException() {
+
+        account1.setBalance(100);
+
         try {
+            long invalidAccount = 3243;
             accountTxnService.debit(invalidAccount, 0);
-            fail("Debited amount into non-existing account");
+            Assertions.fail("Debited amount into non-existing account");
         }
-        catch (IllegalArgumentException e) {
-        }
-
-        try {
-            debitAmount = account1.getBalance() + 1;
-            accountTxnService.debit(account1.getAccountNumber(), debitAmount);
-            fail("Debited amount greater than existing balance");
-        }
-        catch (InsufficientFundsException e) {
+        catch (Exception e) {
+            Assertions.assertTrue(e instanceof IllegalArgumentException);
         }
 
     }
 
-    @SuppressWarnings("deprecation")
     @Test
-    public void testTransfer() {
+    public void testDebitInsufficientFundsException() {
+
+        account1.setBalance(100);
+
+        double debitAmount = 100;
+
+        try {
+            debitAmount = account1.getBalance() + 1;
+            accountTxnService.debit(account1.getAccountNumber(), debitAmount);
+            Assertions.fail("Debited amount greater than existing balance");
+        }
+        catch (InsufficientFundsException e) {
+            Assertions.assertTrue(e instanceof InsufficientFundsException);
+        }
+
+    }
+
+    @Test
+    public void testTransferMultipleCase() {
         account1.setBalance(100);
         account2.setBalance(0);
 
@@ -108,18 +129,25 @@ public class AccountTransactionServiceTest {
         try {
             accountTxnService.transfer(account1.getAccountNumber(), account2.getAccountNumber(),
                     1000);
-            fail("Transfered amount greater than balance");
+            Assertions.fail("Transfered amount greater than balance");
         }
         catch (InsufficientFundsException e) {
         }
 
-        double amountTransfered = 100;
+        try {
+            double amountTransfered = 100;
 
-        double expectedValueCredited = (100 * Currency.EUR.getFxRate()) / Currency.USD.getFxRate();
-        accountTxnService.transfer(account1.getAccountNumber(), account2.getAccountNumber(), 100);
+            double expectedValueCredited = (100 * Currency.EUR.getFxRate())
+                    / Currency.USD.getFxRate();
+            accountTxnService.transfer(account1.getAccountNumber(), account2.getAccountNumber(),
+                    100);
 
-        assertEquals(sourceBalance - amountTransfered, account1.getBalance());
-        assertEquals(destinationBalance + expectedValueCredited, account2.getBalance());
+            Assertions.assertEquals(sourceBalance - amountTransfered, account1.getBalance());
+            Assertions.assertEquals(destinationBalance + expectedValueCredited,
+                    account2.getBalance());
+        }
+        catch (InsufficientFundsException e) {
+        }
     }
 
 }

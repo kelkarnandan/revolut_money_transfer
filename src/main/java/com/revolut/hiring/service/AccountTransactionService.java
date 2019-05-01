@@ -51,7 +51,7 @@ public class AccountTransactionService {
         }
     }
 
-    public long debit(long account, double amount) {
+    public long debit(long account, double amount) throws InsufficientFundsException {
         synchronized (AccountTransactionService.class) {
 
             final BankAccountInfo accountInfo = accountService.getAccountInfo(account);
@@ -83,7 +83,8 @@ public class AccountTransactionService {
         }
     }
 
-    public long transfer(long sourceAcnt, long sinkAcnt, double amount) {
+    public long transfer(long sourceAcnt, long sinkAcnt, double amount)
+            throws InsufficientFundsException {
         synchronized (AccountTransactionService.class) {
 
             final BankAccountInfo source = accountService.getAccountInfo(sourceAcnt);
