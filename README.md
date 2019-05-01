@@ -97,11 +97,13 @@ Money Transfer API:
 ```
 curl -X POST <server>/<app-name>/revolut/account/money/transfer 
 -H 'content-type: application/json' 
--d '{"fromAccount" : {source_account_number} , "toAccount" : {destination_account_number}, "amount" : {amount} }'
+-d '{"fromAccount" : {source_account_number} , 
+"toAccount" : {destination_account_number}, "amount" : {amount} }'
 
 Sample : 
 
-curl -X POST http://localhost:8080/revolut-money-transfer/revolut/account/money/transfer -H 'content-type: application/json' 
+curl -X POST http://localhost:8080/revolut-money-transfer/revolut/account/money/transfer 
+-H 'content-type: application/json' 
 -d '{"fromAccount" : 2 , "toAccount" : 3, "amount" : 30 }'
 
 {"txnId":3,"status":"Success","time":"2019-05-01T01:45:38",
