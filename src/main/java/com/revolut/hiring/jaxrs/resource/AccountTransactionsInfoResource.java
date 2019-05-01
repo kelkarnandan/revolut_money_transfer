@@ -1,4 +1,4 @@
-package com.revolut.hiring.jaxrs;
+package com.revolut.hiring.jaxrs.resource;
 
 import static com.revolut.hiring.util.DateUtil.*;
 
@@ -27,10 +27,10 @@ import com.revolut.hiring.jaxrs.response.AccountTransactionResponse;
 import com.revolut.hiring.service.BankAccountService;
 
 @Path("account/txn")
-public class AccountTransactionsInfoService {
+public class AccountTransactionsInfoResource {
 
     private static final Logger logger = LoggerFactory
-            .getLogger(AccountTransactionsInfoService.class);
+            .getLogger(AccountTransactionsInfoResource.class);
     private static final String QUERY_PARAM_DATE_FORMAT = "dd-MM-yyyy";
 
     private final BankAccountService bankAccountService = new BankAccountService();

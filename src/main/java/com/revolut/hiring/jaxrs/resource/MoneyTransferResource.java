@@ -1,4 +1,4 @@
-package com.revolut.hiring.jaxrs;
+package com.revolut.hiring.jaxrs.resource;
 
 import static com.revolut.hiring.util.DateUtil.getDateString;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -26,9 +26,9 @@ import com.revolut.hiring.jaxrs.response.MoneyTransferResponse;
 import com.revolut.hiring.service.AccountTransactionService;
 
 @Path("account/money")
-public class MoneyTransferService {
+public class MoneyTransferResource {
 
-    private static final Logger logger = LoggerFactory.getLogger(MoneyTransferService.class);
+    private static final Logger logger = LoggerFactory.getLogger(MoneyTransferResource.class);
     private final AccountTransactionService txnService = new AccountTransactionService();
 
     @POST

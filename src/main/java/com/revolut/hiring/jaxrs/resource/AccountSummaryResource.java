@@ -1,4 +1,4 @@
-package com.revolut.hiring.jaxrs;
+package com.revolut.hiring.jaxrs.resource;
 
 import static com.revolut.hiring.util.DateUtil.getDateString;
 import static javax.ws.rs.core.Response.Status.*;
@@ -25,9 +25,9 @@ import com.revolut.hiring.jaxrs.response.AccountInfoResponse;
 import com.revolut.hiring.service.BankAccountService;
 
 @Path("account")
-public class AccountSummaryService {
+public class AccountSummaryResource {
 
-    private final Logger logger = LoggerFactory.getLogger(AccountSummaryService.class);
+    private final Logger logger = LoggerFactory.getLogger(AccountSummaryResource.class);
 
     private final BankAccountService accountService = new BankAccountService();
 
