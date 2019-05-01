@@ -5,7 +5,7 @@ No Framework plain Java. The data store runs in-memory for testing.
 Post clone, build the project. This project contains embeded tomcat for local testing. Also war is generated which can be deployed to server. 
 ```
 mvn clean install
-mvn tomcat7:run <!-- only for local embeded tomcat server-->
+mvn tomcat7:run <!-- only for local embeded tomcat server with port 8091-->
 ```
 Assuming local run, the api will run on port 8091 configured in pom.xml <build> section
   
