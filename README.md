@@ -28,6 +28,7 @@ For testing money transfer, we'll first create account with below currency only:
 4. INR
 5. YEN
 6. SGD
+
 In case, one tries to create account with currency other than above ones, will get an BAD REQUEST status in response.
 
 Create Account API:
