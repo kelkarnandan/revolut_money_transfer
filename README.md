@@ -7,7 +7,7 @@ Post clone, build the project. This project contains embeded tomcat for local te
 mvn clean install
 mvn tomcat7:run <!-- only for local embeded tomcat server with port 8091-->
 ```
-Assuming local run, the api will run on port 8091 configured in pom.xml <build> section
+Assuming local run, the api will run on port 8091 configured in pom.xml build section
   
 For external server, use revolut-money-transfer.war. In this case, host url will be <hostname>:<port>/revolut-money-transfer/
 
