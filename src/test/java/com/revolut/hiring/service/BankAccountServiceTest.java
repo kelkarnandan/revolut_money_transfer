@@ -1,6 +1,6 @@
 package com.revolut.hiring.service;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class BankAccountServiceTest {
         int accountsCount = accounts.size();
 
         try {
-            bankAccountService.createAccount("GBP");
+            bankAccountService.createAccount("AUD");
             fail("Created account for unsupported currency");
         }
         catch (UnsupportedOperationException e) {

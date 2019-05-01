@@ -2,6 +2,7 @@ package com.revolut.hiring.bean;
 
 public enum Currency {
     USD(1),
+    GBP(0.77f),
     EUR(0.89f),
     INR(68.6f),
     YEN(111.4f),
