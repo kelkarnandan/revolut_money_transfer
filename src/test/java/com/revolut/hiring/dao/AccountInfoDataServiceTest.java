@@ -13,24 +13,28 @@ import com.revolut.hiring.bean.Currency;
 
 public class AccountInfoDataServiceTest {
 
-    private static AccountInfoDataService accountInfoDataService = AccountInfoDataService.getInstance();
+    private static AccountInfoDataService accountInfoDataService = AccountInfoDataService
+            .getInstance();
 
     private static int accountsCount = 0;
 
     @BeforeAll
     public static void setup() {
-        accountInfoDataService.addAccount(new BankAccountInfo.Builder().setAccountNumber(1).setActive(true)
-                .setBalance(0).setCreationDate(new Date()).setCurrency(Currency.USD).build());
-        accountInfoDataService.addAccount(new BankAccountInfo.Builder().setAccountNumber(2).setActive(true)
-                .setBalance(0).setCreationDate(new Date()).setCurrency(Currency.INR).build());
-        accountInfoDataService.addAccount(new BankAccountInfo.Builder().setAccountNumber(3).setActive(true)
-                .setBalance(0).setCreationDate(new Date()).setCurrency(Currency.USD).build());
+        accountInfoDataService.addAccount(
+                new BankAccountInfo.Builder().setAccountNumber(5).setActive(true).setBalance(0)
+                        .setCreationDate(new Date()).setCurrency(Currency.USD).build());
+        accountInfoDataService.addAccount(
+                new BankAccountInfo.Builder().setAccountNumber(6).setActive(true).setBalance(0)
+                        .setCreationDate(new Date()).setCurrency(Currency.INR).build());
+        accountInfoDataService.addAccount(
+                new BankAccountInfo.Builder().setAccountNumber(7).setActive(true).setBalance(0)
+                        .setCreationDate(new Date()).setCurrency(Currency.USD).build());
         accountsCount = 3;
     }
 
     @Test
     public void testCreateAccountThrowsException() {
-        long accountNum = 4;
+        long accountNum = 8;
         accountsCount = accountInfoDataService.listActiveAccountInfo().size();
         accountInfoDataService.addAccount(new BankAccountInfo.Builder().setAccountNumber(accountNum)
                 .setActive(true).setBalance(0).setCreationDate(new Date()).setCurrency(Currency.USD)
@@ -40,34 +44,39 @@ public class AccountInfoDataServiceTest {
         accountsCount = accountInfoDataService.listActiveAccountInfo().size();
 
         try {
-            accountInfoDataService.addAccount(new BankAccountInfo.Builder().setAccountNumber(accountNum)
-                    .setActive(true).setBalance(0).setCreationDate(new Date())
-                    .setCurrency(Currency.USD).build());
+            accountInfoDataService.addAccount(new BankAccountInfo.Builder()
+                    .setAccountNumber(accountNum).setActive(true).setBalance(0)
+                    .setCreationDate(new Date()).setCurrency(Currency.USD).build());
             fail("Expected exception for Account already existing");
         }
         catch (Exception e) {
             assertTrue(e instanceof UnsupportedOperationException);
-            assertTrue(e.getMessage().contains("Account already exist #4"));
+            assertTrue(e.getMessage().contains("Account already exist"));
         }
     }
 
     @Test
     public void testDeleteAccount() {
-        long accountNum = 4;
+        long accountNum = 8;
 
         List<BankAccountInfo> activeAccountInfos = accountInfoDataService.listActiveAccountInfo();
-        List<BankAccountInfo> inactiveAccountInfos = accountInfoDataService.listInactiveAccountInfo();
+        List<BankAccountInfo> inactiveAccountInfos = accountInfoDataService
+                .listInactiveAccountInfo();
 
         accountInfoDataService.deleteAccount(accountNum);
-        assertEquals(activeAccountInfos.size() - 1, accountInfoDataService.listActiveAccountInfo().size());
-        assertEquals(inactiveAccountInfos.size() + 1, accountInfoDataService.listInactiveAccountInfo().size());
+        assertEquals(activeAccountInfos.size() - 1,
+                accountInfoDataService.listActiveAccountInfo().size());
+        assertEquals(inactiveAccountInfos.size() + 1,
+                accountInfoDataService.listInactiveAccountInfo().size());
 
         activeAccountInfos = accountInfoDataService.listActiveAccountInfo();
         inactiveAccountInfos = accountInfoDataService.listInactiveAccountInfo();
 
         accountInfoDataService.deleteAccount(accountNum);
-        assertEquals(activeAccountInfos.size(), accountInfoDataService.listActiveAccountInfo().size());
-        assertEquals(inactiveAccountInfos.size(), accountInfoDataService.listInactiveAccountInfo().size());
+        assertEquals(activeAccountInfos.size(),
+                accountInfoDataService.listActiveAccountInfo().size());
+        assertEquals(inactiveAccountInfos.size(),
+                accountInfoDataService.listInactiveAccountInfo().size());
     }
 
 }

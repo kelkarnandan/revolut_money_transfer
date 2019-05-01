@@ -1,9 +1,8 @@
 package com.revolut.hiring.service;
 
-import static org.junit.Assert.*;
-
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.revolut.hiring.bean.BankAccountInfo;
@@ -20,18 +19,19 @@ public class BankAccountServiceTest {
 
         try {
             bankAccountService.createAccount("AUD");
-            fail("Created account for unsupported currency");
+            Assertions.fail("Created account for unsupported currency");
         }
         catch (UnsupportedOperationException e) {
         }
 
         final BankAccountInfo usdAccount = bankAccountService.createAccount("USD");
-        assertEquals(accountsCount + 1, bankAccountService.getAccountsInfo().size());
-        assertEquals(usdAccount, bankAccountService.getAccountInfo(usdAccount.getAccountNumber()));
-        assertNull(bankAccountService.getAccountInfo(32432));
+        Assertions.assertEquals(accountsCount + 1, bankAccountService.getAccountsInfo().size());
+        Assertions.assertEquals(usdAccount,
+                bankAccountService.getAccountInfo(usdAccount.getAccountNumber()));
+        Assertions.assertNull(bankAccountService.getAccountInfo(32432));
 
         bankAccountService.deleteAccount(usdAccount.getAccountNumber());
-        assertEquals(accountsCount, bankAccountService.getAccountsInfo().size());
-        assertNull(bankAccountService.getAccountInfo(usdAccount.getAccountNumber()));
+        Assertions.assertEquals(accountsCount, bankAccountService.getAccountsInfo().size());
+        Assertions.assertNull(bankAccountService.getAccountInfo(usdAccount.getAccountNumber()));
     }
 }

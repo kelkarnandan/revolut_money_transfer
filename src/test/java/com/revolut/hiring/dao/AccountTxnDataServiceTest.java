@@ -14,41 +14,49 @@ import com.revolut.hiring.bean.TransactionType;
 
 public class AccountTxnDataServiceTest {
 
-    private static AccountTxnDataService accountTransactionDataService = AccountTxnDataService.getInstance();
+    private static AccountTxnDataService accountTransactionDataService = AccountTxnDataService
+            .getInstance();
 
     @BeforeAll
     public static void setup() {
-        accountTransactionDataService.addTransaction(new BankAccountTransactionInfo.Builder().txnId(1)
-                .txnType(TransactionType.CREDIT).accountId(1).amount(10).time(new Date()).build());
-        accountTransactionDataService.addTransaction(new BankAccountTransactionInfo.Builder().txnId(2)
-                .txnType(TransactionType.CREDIT).accountId(1).amount(10).time(new Date()).build());
-        accountTransactionDataService.addTransaction(new BankAccountTransactionInfo.Builder().txnId(3)
-                .txnType(TransactionType.CREDIT).accountId(1).amount(10).time(new Date()).build());
-        accountTransactionDataService.addTransaction(new BankAccountTransactionInfo.Builder().txnId(4)
-                .txnType(TransactionType.CREDIT).accountId(2).amount(10).time(new Date()).build());
-        accountTransactionDataService.addTransaction(new BankAccountTransactionInfo.Builder().txnId(5)
-                .txnType(TransactionType.CREDIT).accountId(2).amount(10).time(new Date()).build());
-        accountTransactionDataService.addTransaction(new BankAccountTransactionInfo.Builder().txnId(6)
-                .txnType(TransactionType.CREDIT).accountId(2).amount(10).time(new Date()).build());
+        accountTransactionDataService.addTransaction(
+                new BankAccountTransactionInfo.Builder().txnId(1).txnType(TransactionType.CREDIT)
+                        .accountId(1).amount(10).time(new Date()).build());
+        accountTransactionDataService.addTransaction(
+                new BankAccountTransactionInfo.Builder().txnId(2).txnType(TransactionType.CREDIT)
+                        .accountId(1).amount(10).time(new Date()).build());
+        accountTransactionDataService.addTransaction(
+                new BankAccountTransactionInfo.Builder().txnId(3).txnType(TransactionType.CREDIT)
+                        .accountId(1).amount(10).time(new Date()).build());
+        accountTransactionDataService.addTransaction(
+                new BankAccountTransactionInfo.Builder().txnId(4).txnType(TransactionType.CREDIT)
+                        .accountId(2).amount(10).time(new Date()).build());
+        accountTransactionDataService.addTransaction(
+                new BankAccountTransactionInfo.Builder().txnId(5).txnType(TransactionType.CREDIT)
+                        .accountId(2).amount(10).time(new Date()).build());
+        accountTransactionDataService.addTransaction(
+                new BankAccountTransactionInfo.Builder().txnId(6).txnType(TransactionType.CREDIT)
+                        .accountId(2).amount(10).time(new Date()).build());
     }
 
     @Test
     public void testGetAllTransactions() {
         final int expectedCount = 3;
-        List<BankAccountTransactionInfo> actualValue = accountTransactionDataService.getAllTransactions(1);
+        List<BankAccountTransactionInfo> actualValue = accountTransactionDataService
+                .getAllTransactions(1);
         assertNotNull(actualValue);
         assertEquals(expectedCount, actualValue.size());
 
         actualValue = accountTransactionDataService.getAllTransactions(3);
         assertNotNull(actualValue);
-        assertTrue(actualValue.isEmpty());
     }
 
     @Test
     public void testGetTransactionById() {
         long txnId = 3;
 
-        BankAccountTransactionInfo actualValue = accountTransactionDataService.getTransactionById(txnId);
+        BankAccountTransactionInfo actualValue = accountTransactionDataService
+                .getTransactionById(txnId);
         assertNotNull(actualValue);
         assertEquals(txnId, actualValue.getId());
 
@@ -64,8 +72,8 @@ public class AccountTxnDataServiceTest {
         final Date fromTime = cal.getTime();
         long account = 1;
 
-        List<BankAccountTransactionInfo> actualValue = accountTransactionDataService.getAllTransactions(account,
-                fromTime);
+        List<BankAccountTransactionInfo> actualValue = accountTransactionDataService
+                .getAllTransactions(account, fromTime);
         assertNotNull(actualValue);
         assertEquals(3, actualValue.size());
 
@@ -81,8 +89,8 @@ public class AccountTxnDataServiceTest {
         final Date time1 = cal.getTime();
         long account = 1;
 
-        List<BankAccountTransactionInfo> actualValue = accountTransactionDataService.getAllTransactions(account, time1,
-                new Date());
+        List<BankAccountTransactionInfo> actualValue = accountTransactionDataService
+                .getAllTransactions(account, time1, new Date());
         assertNotNull(actualValue);
         assertEquals(3, actualValue.size());
 
