@@ -38,7 +38,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>restful-api</finalName>
+		<finalName>revolut-money-transfer</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
