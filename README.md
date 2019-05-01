@@ -23,8 +23,8 @@ In case, one tries to create account with currency other than above ones, will g
 ```
 - all POST API expects Content-Type, Accept headers with value "application/json".
 - Fx rate are hard-coded for money transfer between accounts having different currencies.
-- For eg, user want to transfer $100 to account that deals in EUR currency. 
-So here Fx rate conversion will take place internally.
+- For eg, user want to transfer $100 to account that deals in EUR currency. So 
+  here Fx rate conversion will take place internally.
 ```
 
 Create Account API:
@@ -47,7 +47,9 @@ Sample:
 - Request
 curl -X GET  http://localhost:8091/revolut/account/info/all
 - Respnse : 
-[{"accountNumber":2,"balance":0.0,"currency":"GBP","creationDate":"2019-04-30T11:22:09"},{"accountNumber":3,"balance":0.0,"currency":"GBP","creationDate":"2019-04-30T11:22:36"},{"accountNumber":4,"balance":0.0,"currency":"GBP","creationDate":"2019-04-30T11:24:08"}]
+[{"accountNumber":2,"balance":0.0,"currency":"GBP","creationDate":"2019-04-30T11:22:09"},
+{"accountNumber":3,"balance":0.0,"currency":"GBP","creationDate":"2019-04-30T11:22:36"},
+{"accountNumber":4,"balance":0.0,"currency":"GBP","creationDate":"2019-04-30T11:24:08"}]
 ```
 
 Delete Account API:
@@ -94,8 +96,11 @@ curl -X POST http://localhost:8091/revolut/account/money/transfer
 
 Sample : 
 
-curl -X POST http://localhost:8091/revolut/account/money/transfer -H 'content-type: application/json' -d '{"fromAccount" : 2 , "toAccount" : 3, "amount" : 30 }'
-{"txnId":3,"status":"Success","time":"2019-05-01T01:45:38","request":{"fromAccount":2,"toAccount":3,"amount":30.0}}
+curl -X POST http://localhost:8091/revolut/account/money/transfer -H 'content-type: application/json' 
+-d '{"fromAccount" : 2 , "toAccount" : 3, "amount" : 30 }'
+
+{"txnId":3,"status":"Success","time":"2019-05-01T01:45:38",
+"request":{"fromAccount":2,"toAccount":3,"amount":30.0}}
 
 ```
 Once the users has made some transactions, we can verify the balances of account using above Account Info APIs.
@@ -112,5 +117,7 @@ Account Transaction Info APIs:
 Sample : 
 
 curl -X GET  http://localhost:8091/revolut/account/txn/2?from="29-04-2018"
-[{"txnId":1,"accountId":2,"txnType":"CREDIT","amount":100.0,"txnDate":"2019-05-01T01:42:15"},{"txnId":2,"accountId":2,"txnType":"DEBIT","amount":20.0,"txnDate":"2019-05-01T01:44:23"},{"txnId":3,"accountId":2,"txnType":"DEBIT","amount":30.0,"txnDate":"2019-05-01T01:45:38"}]
+[{"txnId":1,"accountId":2,"txnType":"CREDIT","amount":100.0,"txnDate":"2019-05-01T01:42:15"},
+{"txnId":2,"accountId":2,"txnType":"DEBIT","amount":20.0,"txnDate":"2019-05-01T01:44:23"},
+{"txnId":3,"accountId":2,"txnType":"DEBIT","amount":30.0,"txnDate":"2019-05-01T01:45:38"}]
 ```
